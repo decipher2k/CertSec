@@ -1,140 +1,140 @@
-# CertSec - SSL Zertifikat Monitor mit automatischer Traffic-Umleitung
+# CertSec - SSL Certificate Monitor with Automatic Traffic Redirection
 
-## Übersicht
+## Overview
 
-CertSec ist ein Windows-Tool, das SSL/TLS-Zertifikate von Nicht-Browser-Anwendungen überwacht und Certificate Pinning implementiert, um vor Man-in-the-Middle-Angriffen zu schützen.
+CertSec is a Windows tool that monitors SSL/TLS certificates of non-browser applications and implements certificate pinning to protect against Man-in-the-Middle attacks.
 
-## Hauptfunktionen
+## Main Features
 
 ### 1. Certificate Pinning (Trust on First Use - TOFU)
-- Speichert Zertifikate beim ersten Kontakt mit einem Server
-- Validiert bei zukünftigen Verbindungen die Zertifikatsübereinstimmung
-- Blockiert automatisch Verbindungen mit geänderten Zertifikaten
+- Stores certificates on first contact with a server
+- Validates certificate matching on future connections
+- Automatically blocks connections with changed certificates
 
-### 2. Intelligente Zertifikatsänderungs-Erkennung ?? NEU
-Bei erkannten Zertifikatsänderungen wird ein detaillierter Dialog angezeigt mit:
-- **?? Deutliche Warnung** vor potentiellem Hackerangriff
-- **Vergleich Alt/Neu**: Fingerabdruck, Aussteller, Ablaufdatum
-- **IP-Adressen-Tracking**: Zeigt vorherige und aktuelle Server-IP
-- **IP-Wechsel-Warnung**: Hervorhebung wenn sich die IP geändert hat
-- **Zwei-Wege-Entscheidung**:
-  - ? **BLOCKIEREN** (Empfohlen): Verbindung wird verweigert
-  - ?? **Aktualisieren** (Risiko!): Neues Zertifikat akzeptieren mit doppelter Bestätigung
+### 2. Intelligent Certificate Change Detection ?? NEW
+When certificate changes are detected, a detailed dialog is displayed with:
+- **?? Clear Warning** about potential hacker attack
+- **Old/New Comparison**: Fingerprint, issuer, expiration date
+- **IP Address Tracking**: Shows previous and current server IP
+- **IP Change Warning**: Highlighting when the IP has changed
+- **Two-Way Decision**:
+  - ? **BLOCK** (Recommended): Connection is denied
+  - ?? **Update** (Risk!): Accept new certificate with double confirmation
 
-### 3. Automatische Traffic-Umleitung
-- Leitet HTTPS-Traffic (Port 443) von Nicht-Browser-Apps automatisch um
-- Nutzt Windows Firewall-Regeln und System-Proxy-Einstellungen
-- Ähnlich wie Privoxy, aber speziell für Certificate Pinning
+### 3. Automatic Traffic Redirection
+- Automatically redirects HTTPS traffic (Port 443) from non-browser apps
+- Uses Windows Firewall rules and system proxy settings
+- Similar to Privoxy, but specifically for certificate pinning
 
-### 4. Browser-Ausschluss
-- Filtert automatisch Web-Browser (Chrome, Firefox, Edge, Opera, etc.)
-- Konzentriert sich auf andere Anwendungen (Update-Programme, Desktop-Apps, etc.)
+### 4. Browser Exclusion
+- Automatically filters web browsers (Chrome, Firefox, Edge, Opera, etc.)
+- Focuses on other applications (update programs, desktop apps, etc.)
 
-### 5. Persistente Speicherung
-- Zertifikatsdatenbank in `%APPDATA%\Roaming\CertSec\certificates.db`
-- Event-Logs in `%APPDATA%\Roaming\CertSec\events.log`
-- Überleben Programm- und Systemneustarts
+### 5. Persistent Storage
+- Certificate database in `%APPDATA%\Roaming\CertSec\certificates.db`
+- Event logs in `%APPDATA%\Roaming\CertSec\events.log`
+- Survives program and system restarts
 
-### 6. Verbindungsüberwachung
-- Echtzeit-Monitoring aller überwachten Verbindungen
-- Farbcodierte Status-Anzeige
-- Detaillierte Event-Logs
+### 6. Connection Monitoring
+- Real-time monitoring of all monitored connections
+- Color-coded status display
+- Detailed event logs
 
-## Verwendung
+## Usage
 
 ### Installation
-1. Kompilieren Sie das Projekt in Visual Studio
-2. Starten Sie `CertSec.exe` **als Administrator** (für automatische Umleitung)
+1. Compile the project in Visual Studio
+2. Start `CertSec.exe` **as Administrator** (for automatic redirection)
 
-### Grundlegende Nutzung
+### Basic Usage
 
-#### Manueller Modus (ohne automatische Umleitung)
-1. Starten Sie CertSec
-2. Klicken Sie auf "Start"
-3. Konfigurieren Sie Ihre Anwendungen manuell, um den Proxy `127.0.0.1:8888` zu verwenden
-4. CertSec überwacht nun alle Verbindungen über diesen Proxy
+#### Manual Mode (without automatic redirection)
+1. Start CertSec
+2. Click "Start"
+3. Manually configure your applications to use proxy `127.0.0.1:8888`
+4. CertSec now monitors all connections through this proxy
 
-#### Automatischer Modus (mit Traffic-Umleitung)
-1. Starten Sie CertSec **als Administrator**
-2. Geben Sie den gewünschten Proxy-Port ein (Standard: 8888)
-3. Klicken Sie auf "Start"
-4. Aktivieren Sie "Automatische Traffic-Umleitung"
-5. Bestätigen Sie die Sicherheitsabfrage
-6. CertSec leitet nun automatisch allen HTTPS-Traffic von Nicht-Browser-Apps um
+#### Automatic Mode (with traffic redirection)
+1. Start CertSec **as Administrator**
+2. Enter the desired proxy port (default: 8888)
+3. Click "Start"
+4. Enable "Automatic Traffic Redirection"
+5. Confirm the security prompt
+6. CertSec now automatically redirects all HTTPS traffic from non-browser apps
 
 ### Certificate Management
 
-#### Zertifikate anzeigen
-- Wechseln Sie zum Tab "Zertifikate"
-- Hier sehen Sie alle gespeicherten Zertifikate mit Details
+#### View Certificates
+- Switch to the "Certificates" tab
+- Here you can see all stored certificates with details
 
-#### Zertifikat entfernen
-1. Wählen Sie ein Zertifikat aus
-2. Klicken Sie auf "Entfernen"
-3. Bei der nächsten Verbindung wird das Zertifikat neu gelernt
+#### Remove Certificate
+1. Select a certificate
+2. Click "Remove"
+3. On the next connection, the certificate will be learned anew
 
-#### Vertrauensstatus ändern
-1. Wählen Sie ein Zertifikat aus
-2. Klicken Sie auf "Vertrauen ändern"
-3. Als nicht vertrauenswürdig markierte Zertifikate blockieren alle Verbindungen
+#### Change Trust Status
+1. Select a certificate
+2. Click "Change Trust"
+3. Certificates marked as untrusted block all connections
 
-#### Alle Zertifikate löschen
-- Klicken Sie auf "Alle löschen"
-- Bestätigen Sie die Sicherheitsabfrage
-- Alle Zertifikate werden entfernt und müssen neu gelernt werden
+#### Delete All Certificates
+- Click "Delete All"
+- Confirm the security prompt
+- All certificates are removed and must be learned anew
 
-## Status-Codes
+## Status Codes
 
-### Verbindungsstatus
-- **Allowed** (Grün): Verbindung erlaubt, Zertifikat validiert
-- **NewCertificate** (Blau): Neues Zertifikat gelernt (TOFU)
-- **Blocked** (Rot): Verbindung blockiert (nicht vertrauenswürdig)
-- **CertificateChanged** (Rot): Zertifikat hat sich geändert - möglicher MITM-Angriff!
-- **CertificateExpired** (Orange): Zertifikat ist abgelaufen
-- **ValidationFailed** (Rot): Zertifikatsvalidierung fehlgeschlagen
+### Connection Status
+- **Allowed** (Green): Connection allowed, certificate validated
+- **NewCertificate** (Blue): New certificate learned (TOFU)
+- **Blocked** (Red): Connection blocked (untrusted)
+- **CertificateChanged** (Red): Certificate has changed - possible MITM attack!
+- **CertificateExpired** (Orange): Certificate has expired
+- **ValidationFailed** (Red): Certificate validation failed
 
-## Sicherheitshinweise
+## Security Notes
 
-### Administrator-Rechte
-Für die automatische Traffic-Umleitung werden Administrator-Rechte benötigt, da:
-- Windows Firewall-Regeln erstellt werden müssen
-- System-weite Proxy-Einstellungen geändert werden
-- Netzwerk-Traffic umgeleitet wird
+### Administrator Rights
+Administrator rights are required for automatic traffic redirection because:
+- Windows Firewall rules must be created
+- System-wide proxy settings are changed
+- Network traffic is redirected
 
-### Firewall-Regeln
-Bei aktivierter automatischer Umleitung werden folgende Firewall-Regeln erstellt:
+### Firewall Rules
+When automatic redirection is enabled, the following firewall rules are created:
 - **Name**: `CertSec_HTTPS_Redirect`
-- **Richtung**: Ausgehend
-- **Protokoll**: TCP
+- **Direction**: Outbound
+- **Protocol**: TCP
 - **Port**: 443
-- **Aktion**: Allow (mit Umleitung zum Proxy)
+- **Action**: Allow (with redirection to proxy)
 
-Diese Regeln werden beim Deaktivieren automatisch entfernt.
+These rules are automatically removed when deactivated.
 
-### System-Proxy
-Bei aktivierter automatischer Umleitung werden die System-Proxy-Einstellungen temporär geändert:
-- **Proxy**: `127.0.0.1:8888` (oder Ihr konfigurierter Port)
-- **Bypass**: Lokale Adressen und Browser-Traffic
+### System Proxy
+When automatic redirection is enabled, system proxy settings are temporarily changed:
+- **Proxy**: `127.0.0.1:8888` (or your configured port)
+- **Bypass**: Local addresses and browser traffic
 
-Die Einstellungen werden beim Deaktivieren wiederhergestellt.
+Settings are restored when deactivated.
 
-## Technische Details
+## Technical Details
 
-### Komponenten
-- **ProxyService**: Lokaler HTTPS-Proxy für Verbindungsüberwachung
-- **CertificateStore**: Persistente Speicherung von Zertifikatsdaten
-- **CertificateValidator**: Validierung und Certificate Pinning
-- **TrafficRedirector**: Automatische Umleitung via Firewall und System-Proxy
-- **ProcessMonitor**: Identifikation von Browser- vs. Nicht-Browser-Prozessen
+### Components
+- **ProxyService**: Local HTTPS proxy for connection monitoring
+- **CertificateStore**: Persistent storage of certificate data
+- **CertificateValidator**: Validation and certificate pinning
+- **TrafficRedirector**: Automatic redirection via firewall and system proxy
+- **ProcessMonitor**: Identification of browser vs. non-browser processes
 
-### Datenstruktur
+### Data Structure
 ```
 %APPDATA%\Roaming\CertSec\
-??? certificates.db    - Serialisierte Zertifikatsdatenbank
-??? events.log         - Text-basierte Event-Logs
+??? certificates.db    - Serialized certificate database
+??? events.log         - Text-based event logs
 ```
 
-### Unterstützte Browser (werden ausgeschlossen)
+### Supported Browsers (excluded)
 - Google Chrome
 - Mozilla Firefox
 - Microsoft Edge
@@ -144,32 +144,32 @@ Die Einstellungen werden beim Deaktivieren wiederhergestellt.
 - Vivaldi
 - Safari
 
-## Fehlerbehebung
+## Troubleshooting
 
-### "Administrator-Rechte erforderlich"
-- Starten Sie CertSec mit Rechtsklick ? "Als Administrator ausführen"
+### "Administrator Rights Required"
+- Start CertSec with right-click ? "Run as administrator"
 
-### "Port bereits in Verwendung"
-- Ändern Sie den Proxy-Port auf einen freien Port (z.B. 8080, 8889)
+### "Port Already in Use"
+- Change the proxy port to a free port (e.g., 8080, 8889)
 
-### "Verbindung schlägt fehl"
-- Überprüfen Sie, ob die Firewall CertSec blockiert
-- Stellen Sie sicher, dass die Anwendung den Proxy verwendet
+### "Connection Fails"
+- Check if the firewall is blocking CertSec
+- Make sure the application is using the proxy
 
-### "Zertifikat ändert sich ständig"
-- Manche Server verwenden Load Balancer mit verschiedenen Zertifikaten
-- Deaktivieren Sie das Monitoring für diese Hosts oder markieren Sie als vertrauenswürdig
+### "Certificate Constantly Changes"
+- Some servers use load balancers with different certificates
+- Disable monitoring for these hosts or mark as trusted
 
-## Bekannte Einschränkungen
+## Known Limitations
 
-1. **Process Detection**: Die Prozess-Identifikation basiert auf netstat und ist nicht 100% zuverlässig
-2. **Certificate Rotation**: Legitime Zertifikatswechsel erfordern manuelle Bestätigung
-3. **Performance**: Bei vielen gleichzeitigen Verbindungen kann es zu Verzögerungen kommen
+1. **Process Detection**: Process identification is based on netstat and is not 100% reliable
+2. **Certificate Rotation**: Legitimate certificate changes require manual confirmation
+3. **Performance**: With many simultaneous connections, delays may occur
 
-## Lizenz
+## License
 
-Dieses Projekt dient nur zu Demonstrations- und Sicherheitsforschungszwecken.
+This project is for demonstration and security research purposes only.
 
-## Warnung
+## Warning
 
-?? **Wichtig**: Dieses Tool sollte nur auf Ihren eigenen Systemen verwendet werden. Das Abfangen und Überwachen von Netzwerk-Traffic ohne Zustimmung kann illegal sein.
+?? **Important**: This tool should only be used on your own systems. Intercepting and monitoring network traffic without consent may be illegal.
