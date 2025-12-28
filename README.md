@@ -46,22 +46,6 @@ When certificate changes are detected, a detailed dialog is displayed with:
 1. Compile the project in Visual Studio
 2. Start `CertSec.exe` **as Administrator** (for automatic redirection)
 
-### Basic Usage
-
-#### Manual Mode (without automatic redirection)
-1. Start CertSec
-2. Click "Start"
-3. Manually configure your applications to use proxy `127.0.0.1:8888`
-4. CertSec now monitors all connections through this proxy
-
-#### Automatic Mode (with traffic redirection)
-1. Start CertSec **as Administrator**
-2. Enter the desired proxy port (default: 8888)
-3. Click "Start"
-4. Enable "Automatic Traffic Redirection"
-5. Confirm the security prompt
-6. CertSec now automatically redirects all HTTPS traffic from non-browser apps
-
 ### Certificate Management
 
 #### View Certificates
