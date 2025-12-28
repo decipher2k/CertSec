@@ -152,6 +152,7 @@ Settings are restored when deactivated.
 ## License
 
 This project is for demonstration and security research purposes only.
+It is published under the Apache 2.0 license.
 
 ## Warning
 
