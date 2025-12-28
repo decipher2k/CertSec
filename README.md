@@ -43,8 +43,7 @@ When certificate changes are detected, a detailed dialog is displayed with:
 ## Usage
 
 ### Installation
-1. Compile the project in Visual Studio
-2. Start `CertSec.exe` **as Administrator** (for automatic redirection)
+- Start CertSec.exe
 
 ### Certificate Management
 
