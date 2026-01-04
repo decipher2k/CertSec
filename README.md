@@ -2,7 +2,7 @@
 
 ## Overview
 
-CertSec is a Windows tool that monitors SSL/TLS certificates of non-browser applications and implements certificate pinning to protect against Man-in-the-Middle attacks.
+CertSec is a Windows tool that monitors SSL/TLS certificates of non-browser applications and implements certificate pinning to protect against Man-in-the-Middle attacks targeting updaters.
 
 ## Main Features
 
